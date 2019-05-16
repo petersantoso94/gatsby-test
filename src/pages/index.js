@@ -1,75 +1,47 @@
 import React from "react"
-import { Link, graphql } from "gatsby"
 
-import Bio from "../components/bio"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
-import { rhythm } from "../utils/typography"
+
+//import home components
+import Hero from '../components/home/Hero'
+import Intro from '../components/home/Intro'
+import Service from '../components/home/Service'
+import Cta from '../components/home/Cta'
+import Projects from '../components/home/Projects'
+import Milestones from '../components/home/Milestones'
+import Clients from '../components/home/Clients'
 
 
-class BlogIndex extends React.Component {
+class Index extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  componentDidMount() {
+    window.pageLoader();
+    window.pageFunction();
+}
+
   render() {
-    const { data } = this.props
-    const siteTitle = data.site.siteMetadata.title
-    const posts = data.allMarkdownRemark.edges
-
+    const { location } = this.props
     return (
-      <Layout location={this.props.location} title={siteTitle}>
+      <Layout location={location}>
         <SEO
-          title="All posts"
+          title="Home Page"
           keywords={[`blog`, `gatsby`, `javascript`, `react`]}
         />
-        <Bio />
-        {posts.map(({ node }) => {
-          const title = node.frontmatter.title || node.fields.slug
-          return (
-            <div key={node.fields.slug}>
-              <h3
-                style={{
-                  marginBottom: rhythm(1 / 4),
-                }}
-              >
-                <Link style={{ boxShadow: `none` }} to={node.fields.slug}>
-                  {title}
-                </Link>
-              </h3>
-              <small>{node.frontmatter.date}</small>
-              <p
-                dangerouslySetInnerHTML={{
-                  __html: node.frontmatter.description || node.excerpt,
-                }}
-              />
-            </div>
-          )
-        })}
+        <Hero />
+        <Intro />
+        <Service />
+        <Cta />
+        <Projects />
+        <Milestones />
+        <Clients />
+
       </Layout>
     )
   }
 }
 
-export default BlogIndex
-
-export const pageQuery = graphql`
-  query {
-    site {
-      siteMetadata {
-        title
-      }
-    }
-    allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }) {
-      edges {
-        node {
-          excerpt
-          fields {
-            slug
-          }
-          frontmatter {
-            date(formatString: "MMMM DD, YYYY")
-            title
-            description
-          }
-        }
-      }
-    }
-  }
-`
+export default Index

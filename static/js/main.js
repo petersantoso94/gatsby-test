@@ -20,8 +20,7 @@ window.pageLoader = function(){
 	$("#preloder").show();
 	$(".loader").show();
 	$(".loader").delay(100).fadeOut("slow");
-	$("#preloder").delay(400).fadeOut("slow");
-
+	$("#preloder").delay(200).fadeOut("slow");
 	__portfolio(); // call portfolio function
 }
 
